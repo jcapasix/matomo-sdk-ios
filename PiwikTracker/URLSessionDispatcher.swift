@@ -31,16 +31,7 @@ final class URLSessionDispatcher: Dispatcher {
     
     private static func defaultUserAgent() -> String {
         assertMainThread()
-        #if os(OSX)
-            let webView = WebView(frame: .zero)
-            let currentUserAgent = webView.stringByEvaluatingJavaScript(from: "navigator.userAgent") ?? ""
-        #elseif os(iOS)
-            let webView = UIWebView(frame: .zero)
-            let currentUserAgent = webView.stringByEvaluatingJavaScript(from: "navigator.userAgent") ?? ""
-        #elseif os(tvOS)
-            let currentUserAgent = ""
-        #endif
-        return currentUserAgent.appending(" PiwikTracker SDK URLSessionDispatcher")
+        return "PiwikTracker SDK URLSessionDispatcher"
     }
     
     func send(events: [Event], success: @escaping ()->(), failure: @escaping (_ error: Error)->()) {
